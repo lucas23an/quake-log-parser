@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Quake Log Parser</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <% @games.each do |game| %>
+                <div class="col-lg-6 border-1">
+                    <span>Game Number: <%= game.name %></span>
+                    <span>Total Kills: <%= game.total_kills %></span>
+                    <p>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%= game.name %>-players" aria-expanded="false" aria-controls="<%= game.name %>-players">
+                            Players
+                        </button>
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#<%= game.name %>-means" aria-expanded="false" aria-controls="<%= game.name %>-means">
+                            Kills By Means
+                        </button>
+                    </p>
+                    <div class="collapse" id="<%= game.name %>-players">
+                        <div class="card card-block">
+                            <% game.players.each do |player| %>
+                                <div>
+                                    Player Id: <%= player.id %> -
+                                    Player Name: <%= player.name %> -
+                                    Player Kills: <%= player.kills %>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="collapse" id="<%= game.name %>-means">
+                        <div class="card card-block">
+                            <% if game.kills_by_means.empty? %>
+                                <div> No Kills </div>
+                            <% else %>
+                                <% game.kills_by_means.each do |key, mean| %>
+                                    <div>
+                                        Mean: <%= key %> -
+                                        Kills: <%= mean %>
+                                    </div>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <script>
+    </script>
+    </body>
+</html>
